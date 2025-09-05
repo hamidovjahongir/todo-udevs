@@ -13,5 +13,5 @@ class AppColors {
   static const grayLight = Color(0xff999999);
   static const grayDark = Color(0xff7C7B7B);
   static const grayNeutral = Color(0xff969696);
-  
+  static const pink = Color(0xffF6CFC6); 
 }

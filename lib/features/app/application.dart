@@ -12,6 +12,7 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [BlocProvider(create: (_) => sl<TodoBloc>())],
       child: MaterialApp(home: HomePage()),
+      
     );
   }
 }

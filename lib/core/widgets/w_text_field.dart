@@ -13,6 +13,7 @@ class WTextField extends StatefulWidget {
   final EdgeInsetsGeometry? contentPadding;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final String? Function(String?)? validator;
   const WTextField({
     super.key,
     this.controller,
@@ -23,6 +24,7 @@ class WTextField extends StatefulWidget {
     this.contentPadding,
     this.suffixIcon,
     this.prefixIcon,
+    this.validator,
   });
 
   @override
@@ -51,10 +53,21 @@ class _WTextFieldState extends State<WTextField> {
             contentPadding: widget.contentPadding,
             suffixIcon: widget.suffixIcon,
             prefixIcon: widget.prefixIcon,
+            filled: true,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.black.withOpacity(0)),
+              borderRadius: BorderRadius.circular(widget.radius ?? 8),
+            ),
             border: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.black.withOpacity(0)),
+              borderRadius: BorderRadius.circular(widget.radius ?? 8),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.blue),
               borderRadius: BorderRadius.circular(widget.radius ?? 8),
             ),
           ),
+          validator: widget.validator,
         ),
       ],
     );

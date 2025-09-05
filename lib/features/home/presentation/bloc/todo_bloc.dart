@@ -52,7 +52,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     emit(TodoLoading());
     try {
       await addTodoUseCase.call(event.todo);
-      emit(TodoAdded());
+
+      final todos = await getTodosUseCase.call();
+
+      emit(TodoLoadSuccess(todos)); 
     } catch (e) {
       emit(TodoFailure(e.toString()));
     }
@@ -62,7 +65,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     emit(TodoLoading());
     try {
       await removeTodoUseCase.call(event.id);
-      emit(TodoDeleted());
+
+      final todos = await getTodosUseCase.call();
+
+      emit(TodoLoadSuccess(todos));
     } catch (e) {
       emit(TodoFailure(e.toString()));
     }
