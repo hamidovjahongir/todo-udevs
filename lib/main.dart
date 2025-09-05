@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todo/core/utils/app_textstyles.dart';
-import 'package:todo/core/widgets/w_text.dart';
+import 'package:todo/core/di/injection_container.dart';
+import 'package:todo/features/app/application.dart';
+import 'package:todo/features/home/data/datasources/local_datasource.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  setUp();
+  await LocalDatasource.init();
   runApp(const MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return  MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: WText('Hello World!',style: AppStyles.regularWithSize(14),),
-        ),
-      ),
-    );
-  }
 }

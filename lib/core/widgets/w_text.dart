@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/core/utils/app_colors.dart';
 import 'package:todo/core/utils/app_textstyles.dart';
 
 class WText extends StatelessWidget {
@@ -21,7 +22,9 @@ class WText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: style ??  AppStyles.semiBold,
+      style: style ??  AppStyles.regular.copyWith(
+        color: AppColors.gray900
+      ),
       textAlign: align ?? TextAlign.start,
       maxLines: maxLines,
       overflow: overflow,
