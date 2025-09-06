@@ -7,7 +7,6 @@ extension TodoModelX on TodoModel {
       'description': description,
       'location': location,
       'color': color,
-      'time': time,
       'onSaveTime': onSaveTime,
       'onEndTime': onEndTime,
     };

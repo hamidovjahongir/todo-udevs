@@ -8,41 +8,28 @@ part 'todo_event.dart';
 part 'todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
-  final GetTodoUseCase getTodoUseCase;
   final GetTodosUseCase getTodosUseCase;
   final AddTodoUseCase addTodoUseCase;
   final RemoveTodoUseCase removeTodoUseCase;
   final UpdateTodoUseCase updateTodoUseCase;
 
   TodoBloc(
-    this.getTodoUseCase,
     this.getTodosUseCase,
     this.addTodoUseCase,
     this.removeTodoUseCase,
     this.updateTodoUseCase,
   ) : super(TodoInitial()) {
-    on<GetTodoEvent>(_getTodo);
     on<GetTodosEvent>(_getTodos);
     on<AddTodoEvent>(_addTodo);
     on<RemoveTodoEvent>(_removeTodo);
     on<UpdateTodoEvent>(_updateTodo);
-  }
-  Future<void> _getTodo(GetTodoEvent event, Emitter emit) async {
-    emit(TodoLoading());
-    try {
-      final todo = await getTodoUseCase.call(event.id);
-      if (todo == null) emit(TodoFailure('Malmot yoq!'));
-      emit(TodoGetSuccess(todo!));
-    } catch (e) {
-      emit(TodoFailure(e.toString()));
-    }
   }
 
   Future<void> _getTodos(GetTodosEvent event, Emitter emit) async {
     emit(TodoLoading());
     try {
       final todos = await getTodosUseCase.call();
-      emit(TodoLoadSuccess(todos));
+      emit(TodoSuccess(todos));
     } catch (e) {
       emit(TodoFailure(e.toString()));
     }
@@ -55,7 +42,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
       final todos = await getTodosUseCase.call();
 
-      emit(TodoLoadSuccess(todos));
+      emit(TodoSuccess(todos));
     } catch (e) {
       emit(TodoFailure(e.toString()));
     }
@@ -65,10 +52,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     emit(TodoLoading());
     try {
       await removeTodoUseCase.call(event.id);
-
       final todos = await getTodosUseCase.call();
-
-      emit(TodoLoadSuccess(todos));
+      emit(TodoSuccess(todos));
     } catch (e) {
       emit(TodoFailure(e.toString()));
     }
@@ -79,10 +64,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     try {
       final todo = await updateTodoUseCase.call(event.id, event.todo);
       if (todo == null) emit(TodoFailure('ochirishda xatolik'));
-      
       final todos = await getTodosUseCase.call();
-
-      emit(TodoLoadSuccess(todos));
+      emit(TodoSuccess(todos));
     } catch (e) {
       emit(TodoFailure(e.toString()));
     }

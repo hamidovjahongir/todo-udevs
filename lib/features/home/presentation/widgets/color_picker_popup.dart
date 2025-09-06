@@ -80,7 +80,7 @@ class _ColorPickerFieldState extends State<ColorPickerField> {
                 Container(
                   width: 25,
                   height: 20,
-                  color: colors[selectedColorKey],
+                  color:  colors[selectedColorKey] ,
                 ),
                 const Icon(
                   Icons.keyboard_arrow_down_outlined,

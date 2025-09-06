@@ -16,6 +16,7 @@ _$TodoModelImpl _$$TodoModelImplFromJson(Map<String, dynamic> json) =>
       time: json['time'] as String?,
       onSaveTime: json['onSaveTime'] as String?,
       onEndTime: json['onEndTime'] as String?,
+      addTime: json['addTime'] as String?,
     );
 
 Map<String, dynamic> _$$TodoModelImplToJson(_$TodoModelImpl instance) =>
@@ -28,4 +29,5 @@ Map<String, dynamic> _$$TodoModelImplToJson(_$TodoModelImpl instance) =>
       'time': instance.time,
       'onSaveTime': instance.onSaveTime,
       'onEndTime': instance.onEndTime,
+      'addTime': instance.addTime,
     };

@@ -25,7 +25,8 @@ class LocalDatasource {
             color TEXT,
             time TEXT,
             onSaveTime TEXT,
-            onEndTime TEXT
+            onEndTime TEXT,
+            addTime TEXT
           )
         ''');
       },
@@ -58,10 +59,7 @@ class LocalDatasource {
       whereArgs: [id],
       limit: 1,
     );
-    if (data.isNotEmpty) {
-      return TodoModel.fromJson(data.first);
-    }
-    return null;
+    return data.isNotEmpty ? TodoModel.fromJson(data.first) : null;
   }
 
   // Delete

@@ -6,12 +6,6 @@ sealed class TodoEvent {}
 /// Barcha todolarni olish
 final class GetTodosEvent extends TodoEvent {}
 
-/// Bitta todo olish
-final class GetTodoEvent extends TodoEvent {
-  final int id;
-  GetTodoEvent(this.id);
-}
-
 /// Todo qo‘shish
 final class AddTodoEvent extends TodoEvent {
   final TodoModel todo;

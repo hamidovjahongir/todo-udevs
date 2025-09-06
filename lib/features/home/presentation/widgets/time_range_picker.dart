@@ -4,23 +4,35 @@ import 'package:todo/core/utils/app_textstyles.dart';
 import 'package:todo/core/widgets/w_text.dart';
 
 class TimeRangePicker extends StatefulWidget {
+  final String? start;
+  final String end;
+
   final void Function(String start, String end) onChanged;
 
-  const TimeRangePicker({super.key, required this.onChanged});
+  const TimeRangePicker({
+    super.key,
+    required this.onChanged,
+    this.start,
+    required this.end,
+  });
 
   @override
   State<TimeRangePicker> createState() => _TimeRangePickerState();
 }
 
 class _TimeRangePickerState extends State<TimeRangePicker> {
-  String? startTime;
-  String? endTime;
+  late String? startTime;
+  late String? endTime;
+
+  @override
+  void initState() {
+    super.initState();
+     startTime = widget.start;
+     endTime = widget.end; 
+  }
 
   String _formatTime(TimeOfDay time) {
-    final hour = time.hour.toString().padLeft(
-      2,
-      '0',
-    ); // 0 qo‘yiladi agar 1 raqamli bo‘lsa
+    final hour = time.hour.toString().padLeft(2, '0');
     final minute = time.minute.toString().padLeft(2, '0');
     return "$hour:$minute";
   }
@@ -33,7 +45,7 @@ class _TimeRangePickerState extends State<TimeRangePicker> {
 
     if (picked != null) {
       setState(() {
-        startTime = _formatTime(picked); // ✅ faqat HH:mm
+        startTime = _formatTime(picked);
       });
       if (startTime != null && endTime != null) {
         widget.onChanged(startTime!, endTime!);

@@ -20,6 +20,7 @@ class _TodoItemsState extends State<TodoItems> {
   Widget build(BuildContext context) {
     final Color color = parseColor(widget.todo.color);
     return InkWell(
+      borderRadius: BorderRadius.circular(10),
       onTap: () {
         Navigator.push(
           context,

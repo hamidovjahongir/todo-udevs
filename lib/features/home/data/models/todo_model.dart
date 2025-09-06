@@ -14,6 +14,7 @@ class TodoModel with _$TodoModel {
     String? time,
     String? onSaveTime,
     String? onEndTime,
+    String? addTime,
   }) = _TodoModel;
 
   factory TodoModel.fromJson(Map<String, dynamic> json) =>

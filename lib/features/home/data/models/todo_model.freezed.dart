@@ -29,6 +29,7 @@ mixin _$TodoModel {
   String? get time => throw _privateConstructorUsedError;
   String? get onSaveTime => throw _privateConstructorUsedError;
   String? get onEndTime => throw _privateConstructorUsedError;
+  String? get addTime => throw _privateConstructorUsedError;
 
   /// Serializes this TodoModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,6 +55,7 @@ abstract class $TodoModelCopyWith<$Res> {
     String? time,
     String? onSaveTime,
     String? onEndTime,
+    String? addTime,
   });
 }
 
@@ -80,6 +82,7 @@ class _$TodoModelCopyWithImpl<$Res, $Val extends TodoModel>
     Object? time = freezed,
     Object? onSaveTime = freezed,
     Object? onEndTime = freezed,
+    Object? addTime = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -115,6 +118,10 @@ class _$TodoModelCopyWithImpl<$Res, $Val extends TodoModel>
                 ? _value.onEndTime
                 : onEndTime // ignore: cast_nullable_to_non_nullable
                       as String?,
+            addTime: freezed == addTime
+                ? _value.addTime
+                : addTime // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -139,6 +146,7 @@ abstract class _$$TodoModelImplCopyWith<$Res>
     String? time,
     String? onSaveTime,
     String? onEndTime,
+    String? addTime,
   });
 }
 
@@ -164,6 +172,7 @@ class __$$TodoModelImplCopyWithImpl<$Res>
     Object? time = freezed,
     Object? onSaveTime = freezed,
     Object? onEndTime = freezed,
+    Object? addTime = freezed,
   }) {
     return _then(
       _$TodoModelImpl(
@@ -199,6 +208,10 @@ class __$$TodoModelImplCopyWithImpl<$Res>
             ? _value.onEndTime
             : onEndTime // ignore: cast_nullable_to_non_nullable
                   as String?,
+        addTime: freezed == addTime
+            ? _value.addTime
+            : addTime // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -216,6 +229,7 @@ class _$TodoModelImpl implements _TodoModel {
     this.time,
     this.onSaveTime,
     this.onEndTime,
+    this.addTime,
   });
 
   factory _$TodoModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -237,10 +251,12 @@ class _$TodoModelImpl implements _TodoModel {
   final String? onSaveTime;
   @override
   final String? onEndTime;
+  @override
+  final String? addTime;
 
   @override
   String toString() {
-    return 'TodoModel(id: $id, name: $name, description: $description, location: $location, color: $color, time: $time, onSaveTime: $onSaveTime, onEndTime: $onEndTime)';
+    return 'TodoModel(id: $id, name: $name, description: $description, location: $location, color: $color, time: $time, onSaveTime: $onSaveTime, onEndTime: $onEndTime, addTime: $addTime)';
   }
 
   @override
@@ -259,7 +275,8 @@ class _$TodoModelImpl implements _TodoModel {
             (identical(other.onSaveTime, onSaveTime) ||
                 other.onSaveTime == onSaveTime) &&
             (identical(other.onEndTime, onEndTime) ||
-                other.onEndTime == onEndTime));
+                other.onEndTime == onEndTime) &&
+            (identical(other.addTime, addTime) || other.addTime == addTime));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -274,6 +291,7 @@ class _$TodoModelImpl implements _TodoModel {
     time,
     onSaveTime,
     onEndTime,
+    addTime,
   );
 
   /// Create a copy of TodoModel
@@ -300,6 +318,7 @@ abstract class _TodoModel implements TodoModel {
     final String? time,
     final String? onSaveTime,
     final String? onEndTime,
+    final String? addTime,
   }) = _$TodoModelImpl;
 
   factory _TodoModel.fromJson(Map<String, dynamic> json) =
@@ -321,6 +340,8 @@ abstract class _TodoModel implements TodoModel {
   String? get onSaveTime;
   @override
   String? get onEndTime;
+  @override
+  String? get addTime;
 
   /// Create a copy of TodoModel
   /// with the given fields replaced by the non-null parameter values.

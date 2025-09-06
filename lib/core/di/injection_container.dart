@@ -17,7 +17,6 @@ void setUp() {
 
   sl.registerFactory(
     () => TodoBloc(
-      sl<GetTodoUseCase>(),
       sl<GetTodosUseCase>(),
       sl<AddTodoUseCase>(),
       sl<RemoveTodoUseCase>(),
