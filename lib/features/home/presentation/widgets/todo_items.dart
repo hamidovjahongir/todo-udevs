@@ -15,22 +15,10 @@ class TodoItems extends StatefulWidget {
   State<TodoItems> createState() => _TodoItemsState();
 }
 
-const Map<String, Color> colors = {
-  "red": AppColors.red,
-  "pink": AppColors.pink,
-  "blue": AppColors.blue,
-  "orange": AppColors.orange,
-};
-
 class _TodoItemsState extends State<TodoItems> {
-  Color _parseColor(String? key) {
-    if (key == null || key.isEmpty) return AppColors.blue;
-    return colors[key] ?? AppColors.blue;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final Color color = _parseColor(widget.todo.color);
+    final Color color = parseColor(widget.todo.color);
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -69,7 +57,7 @@ class _TodoItemsState extends State<TodoItems> {
                 ),
 
                 WText(
-                  widget.todo.description ?? '-',
+                  widget.todo.location ?? '-',
                   style: AppStyles.regular.copyWith(fontSize: 10, color: color),
                 ),
                 10.height,
@@ -98,4 +86,16 @@ class _TodoItemsState extends State<TodoItems> {
       ),
     );
   }
+}
+
+Map<String, Color> colors = {
+  "red": AppColors.red,
+  "pink": AppColors.pink,
+  "blue": AppColors.blue,
+  "orange": AppColors.orange,
+};
+
+Color parseColor(String? key) {
+  if (key == null || key.isEmpty) return AppColors.blue;
+  return colors[key] ?? AppColors.blue;
 }

@@ -10,6 +10,8 @@ import 'package:todo/core/widgets/w_scale_widget.dart';
 import 'package:todo/core/widgets/w_text.dart';
 import 'package:todo/features/home/data/models/todo_model.dart';
 import 'package:todo/features/home/presentation/bloc/todo_bloc.dart';
+import 'package:todo/features/home/presentation/pages/add_page.dart';
+import 'package:todo/features/home/presentation/widgets/todo_items.dart';
 
 class DetailsPage extends StatefulWidget {
   final TodoModel todo;
@@ -20,7 +22,7 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  String formatTimeAgo(String savedTimeString) {
+    String formatTimeAgo(String savedTimeString) {
     try {
       final savedTime = DateTime.parse(savedTimeString);
       final now = DateTime.now();
@@ -49,6 +51,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Color color = parseColor(widget.todo.color);
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Column(
@@ -56,9 +59,8 @@ class _DetailsPageState extends State<DetailsPage> {
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-
             decoration: BoxDecoration(
-              color: AppColors.blue,
+              color: color,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
@@ -87,11 +89,19 @@ class _DetailsPageState extends State<DetailsPage> {
                       spacing: 4,
                       children: [
                         Icon(Icons.edit, color: AppColors.white),
-                        WText(
-                          'Edit',
-                          style: AppStyles.regular.copyWith(
-                            fontSize: 14,
-                            color: AppColors.white,
+                        GestureDetector(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddPage(todo: widget.todo),
+                            ),
+                          ),
+                          child: WText(
+                            'Edit',
+                            style: AppStyles.regular.copyWith(
+                              fontSize: 14,
+                              color: AppColors.white,
+                            ),
                           ),
                         ),
                       ],
@@ -135,7 +145,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   spacing: 4,
                   children: [
                     Icon(Icons.location_on, color: AppColors.white),
-                    WText(
+                    WText(  
                       widget.todo.location ?? '-',
                       style: AppStyles.regular.copyWith(
                         color: AppColors.white,

@@ -55,7 +55,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
       final todos = await getTodosUseCase.call();
 
-      emit(TodoLoadSuccess(todos)); 
+      emit(TodoLoadSuccess(todos));
     } catch (e) {
       emit(TodoFailure(e.toString()));
     }
@@ -79,7 +79,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     try {
       final todo = await updateTodoUseCase.call(event.id, event.todo);
       if (todo == null) emit(TodoFailure('ochirishda xatolik'));
-      emit(TodoUpdated(todo!));
+      
+      final todos = await getTodosUseCase.call();
+
+      emit(TodoLoadSuccess(todos));
     } catch (e) {
       emit(TodoFailure(e.toString()));
     }

@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:todo/core/extensions/todo_model_x.dart';
 import 'package:todo/features/home/data/models/todo_model.dart';
 
 class LocalDatasource {
@@ -74,7 +75,7 @@ class LocalDatasource {
     await init();
     final count = await _db!.update(
       _tableName,
-      todo.toJson(),
+      todo.toUpdateJson(),
       where: 'id = ?',
       whereArgs: [id],
     );

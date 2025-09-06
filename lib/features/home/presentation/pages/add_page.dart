@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/core/extensions/gap_x_extensions.dart';
@@ -13,7 +15,8 @@ import 'package:todo/features/home/presentation/widgets/color_picker_popup.dart'
 import 'package:todo/features/home/presentation/widgets/time_range_picker.dart';
 
 class AddPage extends StatefulWidget {
-  const AddPage({super.key});
+  final TodoModel? todo;
+  const AddPage({super.key, this.todo});
 
   @override
   State<AddPage> createState() => _AddPageState();
@@ -27,7 +30,8 @@ class _AddPageState extends State<AddPage> {
   late String endTime;
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
-  String selectedColorKey = "blue";
+  String selectedColorKey = "red";
+
   final Map<String, Color> colors = {
     "red": AppColors.red,
     "pink": AppColors.pink,
@@ -35,21 +39,48 @@ class _AddPageState extends State<AddPage> {
     "orange": AppColors.orange,
   };
 
-  void onAdd() {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.todo != null) {
+      nameController.text = widget.todo!.name ?? '';
+      descriptionController.text = widget.todo!.description ?? '';
+      locationController.text = widget.todo!.location ?? '';
+      selectedColorKey = widget.todo!.color ?? '';
+      startTime = widget.todo!.onSaveTime ?? '';
+      endTime = widget.todo!.onEndTime ?? '';
+    }
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    descriptionController.dispose();
+    locationController.dispose();
+    super.dispose();
+  }
+
+  void onSave() {
     if (_globalKey.currentState!.validate()) {
-      context.read<TodoBloc>().add(
-        AddTodoEvent(
-          TodoModel(
-            color: selectedColorKey,
-            name: nameController.text,
-            description: descriptionController.text,
-            location: locationController.text,
-            onSaveTime: startTime,
-            onEndTime: endTime,
-            time: DateTime.now().toString(),
-          ),
-        ),
+      final todo = TodoModel(
+        color: selectedColorKey,
+        name: nameController.text,
+        description: descriptionController.text,
+        location: locationController.text,
+        onSaveTime: startTime,
+        onEndTime: endTime,
+        time: DateTime.now().toString(),
       );
+
+      if (widget.todo != null && widget.todo!.id != null) {
+        // Update
+        log('user id: ${widget.todo!.id}');
+        context.read<TodoBloc>().add(UpdateTodoEvent(widget.todo!.id!, todo));
+      } else {
+        // Add
+        context.read<TodoBloc>().add(AddTodoEvent(todo));
+      }
+
       Navigator.pop(context);
     }
   }
@@ -142,7 +173,7 @@ class _AddPageState extends State<AddPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: WScaleAnimationWidget(
-        onTap: onAdd,
+        onTap: onSave,
         child: WButton(
           height: 50,
           text: Text(
