@@ -97,7 +97,16 @@ class _DetailsPageState extends State<DetailsPage> {
                           Row(
                             spacing: 4,
                             children: [
-                              Icon(Icons.edit, color: AppColors.white),
+                              GestureDetector(
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        AddPage(todo: state.todos[todoIndex]),
+                                  ),
+                                ),
+                                child: Icon(Icons.edit, color: AppColors.white),
+                              ),
                               GestureDetector(
                                 onTap: () => Navigator.push(
                                   context,

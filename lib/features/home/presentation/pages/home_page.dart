@@ -74,40 +74,37 @@ class _HomePageState extends State<HomePage> {
               selectedDate = day;
             });
           },
-          child: Container(
-            decoration: BoxDecoration(),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(7),
-                    decoration: BoxDecoration(
-                      color: isSelected ? Colors.blue : Colors.transparent,
-                      shape: BoxShape.circle,
-                    ),
-                    child: WText(
-                      i.toString(),
-                      style: AppStyles.semiBold.copyWith(
-                        color: isSelected ? AppColors.white : AppColors.black,
-                      ),
-                    ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: isSelected ? Colors.blue : Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
+                child: WText(
+                  i.toString(),
+                  style: AppStyles.semiBold.copyWith(
+                    color: isSelected ? AppColors.white : AppColors.black,
                   ),
-                  if (db.isNotEmpty)
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        for (
-                          int j = 0;
-                          j < (db.length > 3 ? 3 : db.length);
-                          j++
-                        )
-                          Text('●', style: TextStyle(color: colors[db[j]])),
-                      ],
-                    ),
-                ],
+                ),
               ),
-            ),
+              if (db.isNotEmpty)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (int j = 0; j < (db.length > 3 ? 3 : db.length); j++)
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 1),
+                        child: Text(
+                          '●',
+                          style: TextStyle(fontSize: 10, color: colors[db[j]]),
+                        ),
+                      ),
+                  ],
+                ),
+            ],
           ),
         ),
       );

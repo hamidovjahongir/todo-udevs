@@ -93,81 +93,88 @@ class _AddPageState extends State<AddPage> {
       body: SafeArea(
         child: Form(
           key: _globalKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_outlined,
-                  color: AppColors.gray500,
-                  size: 27,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_outlined,
+                    color: AppColors.gray500,
+                    size: 27,
+                  ),
                 ),
-              ),
-              35.height,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 15,
-                children: [
-                  WTextField(
-                    controller: nameController,
-                    fieldName: 'Event name',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Enter Todo Name';
-                      }
-                      return null;
-                    },
-                  ),
+                35.height,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 15,
+                  children: [
+                    WTextField(
+                      controller: nameController,
+                      fieldName: 'Event name',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter Todo Name';
+                        }
+                        return null;
+                      },
+                    ),
 
-                  WTextField(
-                    maxLines: 3,
+                    WTextField(
+                      maxLines: 3,
 
-                    controller: descriptionController,
-                    fieldName: 'Event description',
-                  ),
+                      controller: descriptionController,
+                      fieldName: 'Event description',
+                    ),
 
-                  WTextField(
-                    controller: locationController,
-                    fieldName: 'Event location',
-                    suffixIcon: Icon(Icons.location_on, color: AppColors.blue),
-                  ),
+                    WTextField(
+                      controller: locationController,
+                      fieldName: 'Event location',
+                      suffixIcon: Icon(
+                        Icons.location_on,
+                        color: AppColors.blue,
+                      ),
+                    ),
 
-                  ColorPickerField(
-                    initialColorKey: selectedColorKey,
-                    onChanged: (colorKey) {
-                      setState(() {
-                        selectedColorKey = colorKey;
-                      });
-                      debugPrint("Tanlangan rang: $colorKey");
-                    },
-                  ),
+                    ColorPickerField(
+                      initialColorKey: selectedColorKey,
+                      onChanged: (colorKey) {
+                        setState(() {
+                          selectedColorKey = colorKey;
+                        });
+                        debugPrint("Tanlangan rang: $colorKey");
+                      },
+                    ),
 
-                  TimeRangePicker(
-                    onChanged: (start, end) {
-                      startTime = start;
-                      endTime = end;
-                    },
-                    start: startTime,
-                    end: endTime,
+                    TimeRangePicker(
+                      onChanged: (start, end) {
+                        startTime = start;
+                        endTime = end;
+                      },
+                      start: startTime,
+                      end: endTime,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.18,
+                ),
+                WButton(
+                  onTap: onSave,
+                  height: 50,
+                  text: Text(
+                    'Add',
+                    style: AppStyles.regular.copyWith(color: AppColors.white),
                   ),
-                ],
-              ),
-            ],
-          ).paddingSymmetric(horizontal: 20),
+                ),
+              ],
+            ).paddingSymmetric(horizontal: 20),
+          ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: WButton(
-        onTap: onSave,
-        height: 50,
-        text: Text(
-          'Add',
-          style: AppStyles.regular.copyWith(color: AppColors.white),
-        ),
-      ).paddingOnly(right: 20, left: 20, bottom: 20),
     );
   }
 }
